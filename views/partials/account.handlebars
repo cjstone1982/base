@@ -1,0 +1,167 @@
+<div class="login-link">
+	{{#if user}}
+		<span>{{user.email}}</span>
+		<a class="setting" href="javascript:void(0)">设置</a>
+	{{else}}
+		<a class="a-login" href="javascript:void(0)">登录</a>
+		<a class="a-reg" href="javascript:void(0)">注册</a>
+	{{/if}}
+</div>
+<div class="login none">
+	<ul>
+		<!-- 注册form -->
+		<form id="register">
+			<div class="b-reg none">
+				<li>
+					<input type="text" name='username' placeholder="用户名" />
+				</li>
+				<li>
+					<input type="text" name='email' placeholder="邮箱" />
+				</li>
+				<li>
+					<input type="text" name='password' placeholder="密码" />
+				</li>
+				<li>
+					<input type="text" name='repassword' placeholder="确认密码" />
+				</li>
+				<li>
+					<button id="registerSubmit" type="button">注册</button>
+				</li>
+			</div>
+		</form>
+		<!-- 登录form -->
+		<form id="login">
+			<div class="b-login">
+				<li>
+					<input type="text" name='email' placeholder="邮箱" />
+				</li>
+				<li>
+					<input type="text" name='password' placeholder="密码" />
+				</li>
+				<li>
+					<button id="loginSubmit" type="button">登录</button>
+				</li>
+			</div>
+		</form>
+		<li><a class="close" href="">close</a></li>
+	</ul>
+</div>
+
+<div class="user-setting none">
+	<ul>
+		<!-- 用户设置 -->
+		<form id="profile">
+			<div>
+				<!-- <li>
+					<input type="text" name='username' placeholder="用户名" />
+				</li>
+				<li>
+					<input type="text" name='email' placeholder="邮箱" />
+				</li>
+				<li>
+					<input type="text" name='password' placeholder="密码" />
+				</li>
+				<li>
+					<input type="text" name='repassword' placeholder="确认密码" />
+				</li>  -->
+				<li>
+					<input type="text" name='name' placeholder="姓名" value='' />
+				</li>
+				<li>
+					<input type="text" name='department' placeholder="部门" />
+				</li>
+				<li>
+					<input type="text" name='jobtitle' placeholder="职务" />
+				</li>
+				<li>
+					<button id="profileSubmit" type="button">提交</button>
+				</li>
+			</div>
+		</form>
+		<li>
+			<a class="close" href="javascript:void(0)">close</a>
+			<a id="loginOut" href="javascript:void(0)">登出</a>
+		</li>
+	</ul>
+</div>
+
+<script>
+	//效果
+	$('.login-link .a-login').click(function(e){
+		e.preventDefault()
+		$('.b-reg').hide()
+		$('.b-login').show()
+		$('.login').show()
+		$(this).addClass('active')
+		$('.a-reg').removeClass('active')
+	})
+	$('.login-link .a-reg').click(function(e){
+		e.preventDefault()
+		$('.b-reg').show()
+		$('.b-login').hide()
+		$('.login').show()
+		$(this).addClass('active')
+		$('.a-login').removeClass('active')
+	})
+	$('.login .close').click(function(e){
+		e.preventDefault()
+		$(this).parent().parent().parent().hide()
+		$('.login-link a').removeClass('active')
+	})
+	$('.login-link .setting').click(function(){
+		$('.user-setting').show()
+	})
+	$('.user-setting .close').click(function(){
+		$(this).parent().parent().parent().hide()
+	})
+	//操作
+	//注册ajax
+	$('#registerSubmit').click(function(){
+		$.ajax({
+		   type: "POST",
+		   url: "/register",
+		   data: $('form#register').serialize(),
+		   success: function(msg){
+		     	alert(msg)
+		   }
+		})
+	})
+	//登录ajax
+	$('#loginSubmit').click(function(){
+		$.ajax({
+		   type: "POST",
+		   url: "/login",
+		   data: $('form#login').serialize(),
+		   success: function(msg){
+		     	alert(msg)
+		     	window.location.reload()
+		   }
+		})
+	})
+	//登出ajax
+	$('#loginOut').click(function(){
+		$.ajax({
+		   type: "POST",
+		   url: "/login_out",
+		   success: function(msg){
+		     	alert(msg)
+		     	$('.user-setting').hide()
+		     	window.location.reload()
+		   }
+		})
+	})
+	//修改个人信息ajax
+	$('#profileSubmit').click(function(){
+		$.ajax({
+		   type: "POST",
+		   url: "/profile",
+		   data: $('form#profile').serialize(),
+		   success: function(msg){
+		     	alert(msg)
+		     	$('.user-setting').hide()
+		   }
+		})
+	})
+	
+</script>
+

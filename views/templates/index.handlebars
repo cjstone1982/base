@@ -1,0 +1,48 @@
+<div id="main">
+	<a href="/admin">admin</a>
+	<a class="insert" href="javascript:void(0)">insert</a>
+	{{title}}
+	{{#each posts}}
+		{{@index}}{{title}} 
+		<a id={{_id}} class="update" href="javascript:void(0)">修改</a>
+		<a id={{_id}} class="delete" href="javascript:void(0)">删除</a>
+		<br>
+	{{/each}}
+</div>
+
+<script>
+	$(function(){
+		$('.insert').click(function(){
+			$.ajax({
+				url:'/post',
+				type:'POST',//GET  PUT  DELETE
+				data:'title="我不知道"',
+				success:function(msg){
+					console.log(msg);
+				}
+			})
+		})
+		$('.delete').click(function(){
+			// alert($(this).attr('id'))
+			$.ajax({
+				url:'/post',
+				type:'DELETE',//GET  PUT  DELETE
+				data:{'id':$(this).attr('id')},
+				success:function(msg){
+					console.log(msg);
+				}
+			})
+		})
+		$('.update').click(function(){
+			// alert($(this).attr('id'))
+			$.ajax({
+				url:'/post',
+				type:'PUT',//GET  PUT  DELETE
+				data:{'id':$(this).attr('id')},
+				success:function(msg){
+					console.log(msg);
+				}
+			})
+		})
+	})
+</script>

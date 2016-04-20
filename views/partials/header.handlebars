@@ -1,0 +1,39 @@
+<header>
+	<div class="bg"></div>
+	<div class="pc">
+		{{>account}}
+		<div class="logo">LOGO</div>
+		<ul class="top-nav">
+			<li><a class="active" href="">文章</a></li>
+			<li><a href="">话题</a></li>
+			<li><a href="">战友</a></li>
+		</ul>
+	</div>
+	<div class="mobile">
+		<div class="left-btn">
+			<div class="btn-nav"><a href="javascript:void(0)">=</a></div>
+			<ul class="left-nav none">
+				<li><a href="">文章</a></li>
+				<li><a href="">话题</a></li>
+				<li><a href="">战友</a></li>
+				<li><a href="">注册</a></li>
+				<li><a href="">登录</a></li>
+			</ul>
+		</div>
+		<div class="title">点石成金</div>
+		<div class="right-btn">
+			<a class="search" href="javascript:void(0)">search</a>
+		</div>
+	</div>
+</header>
+
+<script>
+	$('.btn-nav').click(function(){
+		if($('.left-nav').is(':hidden')){
+			$('.left-nav').fadeIn('fast');
+		}else{
+			$('.left-nav').fadeOut('fast');
+		}
+		
+	})
+</script>
